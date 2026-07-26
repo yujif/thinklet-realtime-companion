@@ -1,0 +1,4 @@
+interface:
+  display_name: "THINKLET Realtime Session Review"
+  short_description: "Extract and review a THINKLET real-device session"
+  default_prompt: "Use $thinklet-realtime-session-review to extract a THINKLET Realtime Companion session and generate a review HTML."
