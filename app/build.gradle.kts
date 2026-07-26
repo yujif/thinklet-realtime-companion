@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
 
@@ -15,7 +14,7 @@ fun buildConfigString(value: String): String {
 
 android {
     namespace = "com.yujif.thinklet.realtimecompanion"
-    compileSdk = 35
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.yujif.thinklet.realtimecompanion"
@@ -49,10 +48,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-
-    kotlinOptions {
-        jvmTarget = "17"
-    }
 }
 
 dependencies {
@@ -71,5 +66,5 @@ dependencies {
     implementation(libs.kotlinx.coroutines.guava)
     debugImplementation(libs.androidx.ui.tooling)
     testImplementation(libs.junit)
-    testImplementation("org.json:json:20240303")
+    testImplementation("org.json:json:20260719")
 }

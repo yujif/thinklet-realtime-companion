@@ -26,10 +26,12 @@ THINKLET を装着してこのアプリを起動しておくことで、声で�
 ## 動作環境
 
 - Android minSdk 27
+- Android compileSdk 37
 - Android targetSdk 35
 - Java 17
-- Kotlin 2.0.21
-- Android Gradle Plugin 8.9.1
+- Kotlin 2.4.10
+- Android Gradle Plugin 9.3.1
+- Gradle 9.6.1（wrapper）
 - THINKLET LC01 での利用を想定
 
 ## セットアップ
