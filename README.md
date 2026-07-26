@@ -26,10 +26,12 @@ This sample ships a generic realtime conversation mode plus two purpose-built us
 ## Requirements
 
 - Android minSdk 27
+- Android compileSdk 37
 - Android targetSdk 35
 - Java 17
-- Kotlin 2.0.21
-- Android Gradle Plugin 8.9.1
+- Kotlin 2.4.10
+- Android Gradle Plugin 9.3.1
+- Gradle 9.6.1 (wrapper)
 - Intended for THINKLET LC01
 
 ## Setup
