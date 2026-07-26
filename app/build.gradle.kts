@@ -1,8 +1,5 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
 
@@ -17,7 +14,7 @@ fun buildConfigString(value: String): String {
 
 android {
     namespace = "com.yujif.thinklet.realtimecompanion"
-    compileSdk = 35
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.yujif.thinklet.realtimecompanion"
@@ -50,12 +47,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-    }
-}
-
-kotlin {
-    compilerOptions {
-        jvmTarget = JvmTarget.JVM_17
     }
 }
 
