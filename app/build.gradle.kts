@@ -71,5 +71,5 @@ dependencies {
     implementation(libs.kotlinx.coroutines.guava)
     debugImplementation(libs.androidx.ui.tooling)
     testImplementation(libs.junit)
-    testImplementation("org.json:json:20240303")
+    testImplementation("org.json:json:20260719")
 }
