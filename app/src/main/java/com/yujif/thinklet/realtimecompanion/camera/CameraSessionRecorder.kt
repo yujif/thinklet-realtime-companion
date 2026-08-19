@@ -4,9 +4,12 @@ import android.Manifest
 import android.content.Context
 import android.os.Looper
 import android.util.Log
+import android.util.Size
 import androidx.annotation.RequiresPermission
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.resolutionselector.ResolutionSelector
+import androidx.camera.core.resolutionselector.ResolutionStrategy
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.video.FileOutputOptions
 import androidx.camera.video.Quality
@@ -65,6 +68,16 @@ class CameraSessionRecorder(
             val videoCapture = VideoCapture.withOutput(recorder)
             val imageAnalysis = analyzer?.let { frameAnalyzer ->
                 ImageAnalysis.Builder()
+                    .setResolutionSelector(
+                        ResolutionSelector.Builder()
+                            .setResolutionStrategy(
+                                ResolutionStrategy(
+                                    FRAME_ANALYSIS_SIZE,
+                                    ResolutionStrategy.FALLBACK_RULE_CLOSEST_LOWER_THEN_HIGHER,
+                                ),
+                            )
+                            .build(),
+                    )
                     .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                     .build()
                     .also { it.setAnalyzer(analysisExecutor, frameAnalyzer) }
@@ -127,5 +140,13 @@ class CameraSessionRecorder(
 
     private companion object {
         const val TAG = "CameraSessionRecorder"
+
+        // Frames handed to the analyzer are JPEG-encoded as-is and sent to the Realtime
+        // API, so this size bounds image token cost per frame. 640x480 is what CameraX
+        // picked on THINKLET by default and what all recorded sessions used; pin it so
+        // the app does not silently send larger frames if the CameraX default or the
+        // device changes. Prefer a smaller supported size over a larger one on fallback
+        // so the cost bound holds.
+        val FRAME_ANALYSIS_SIZE = Size(640, 480)
     }
 }
