@@ -29,11 +29,15 @@ class RealtimeSessionUsageHandler(
         return runCatching {
             val usage = JSONObject(json).optJSONObject("response")?.optJSONObject("usage") ?: return null
             val inputDetails = usage.optJSONObject("input_token_details")
+            val cachedDetails = inputDetails?.optJSONObject("cached_tokens_details")
             val outputDetails = usage.optJSONObject("output_token_details")
             RealtimeUsage(
                 audioInputTokens = inputDetails?.optLong("audio_tokens") ?: 0L,
                 imageInputTokens = inputDetails?.optLong("image_tokens") ?: 0L,
                 textInputTokens = inputDetails?.optLong("text_tokens") ?: 0L,
+                cachedAudioInputTokens = cachedDetails?.optLong("audio_tokens") ?: 0L,
+                cachedImageInputTokens = cachedDetails?.optLong("image_tokens") ?: 0L,
+                cachedTextInputTokens = cachedDetails?.optLong("text_tokens") ?: 0L,
                 audioOutputTokens = outputDetails?.optLong("audio_tokens") ?: 0L,
                 textOutputTokens = outputDetails?.optLong("text_tokens") ?: 0L,
             )

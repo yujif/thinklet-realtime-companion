@@ -263,6 +263,43 @@ class SessionResourceStopperTest {
     }
 
     @Test
+    fun usageHandlerAppliesCachedInputDiscountBeforeBudgetCheck() {
+        val spoken = mutableListOf<Pair<String, String>>()
+        val stopReasons = mutableListOf<String>()
+        val handler = RealtimeSessionUsageHandler(maxCostUsd = 0.01)
+        // 1000 audio input tokens at list price ($32/1M) would be $0.032 and trip the
+        // $0.01 guard; fully cached ($0.40/1M) they are $0.0004 and must not.
+        val usageJson = """
+            {
+              "response": {
+                "usage": {
+                  "input_token_details": {
+                    "audio_tokens": 1000,
+                    "cached_tokens": 1000,
+                    "cached_tokens_details": {
+                      "audio_tokens": 1000
+                    }
+                  },
+                  "output_token_details": {
+                    "audio_tokens": 0
+                  }
+                }
+              }
+            }
+        """.trimIndent()
+
+        handler.handleUsageEvent(
+            json = usageJson,
+            appendUsage = {},
+            speak = { speech, utteranceId -> spoken += speech to utteranceId },
+            stop = { stopReasons += it },
+        )
+
+        assertEquals(emptyList<Pair<String, String>>(), spoken)
+        assertEquals(emptyList<String>(), stopReasons)
+    }
+
+    @Test
     fun usageHandlerIgnoresMalformedUsageForBudgetButStillRecordsRawJson() {
         val appendedUsage = mutableListOf<String>()
         val spoken = mutableListOf<Pair<String, String>>()
