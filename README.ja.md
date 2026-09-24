@@ -30,8 +30,8 @@ THINKLET を装着してこのアプリを起動しておくことで、声で�
 - Android targetSdk 35
 - Java 17
 - Kotlin 2.4.10
-- Android Gradle Plugin 9.3.1
-- Gradle 9.6.1（wrapper）
+- Android Gradle Plugin 9.3.2
+- Gradle 9.7.1（wrapper）
 - THINKLET LC01 での利用を想定
 
 ## セットアップ
